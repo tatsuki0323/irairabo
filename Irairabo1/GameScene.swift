@@ -48,7 +48,7 @@ class GameScene: SKScene {
             }
         }
         var slideSpeed:CGFloat = 5
-        background.position.x += slideSpeed //画像の位置
+        background.position.x += slideSpeed //画像の位置変更
         
         
     }
