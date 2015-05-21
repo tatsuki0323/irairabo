@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Irairabo1/GameScene.swift"
-            timestampString = "452752378.034165"
+            timestampString = "453288766.650649"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "24"
-            endingLineNumber = "24"
+            startingLineNumber = "26"
+            endingLineNumber = "26"
             landmarkName = "touchesMoved(_:withEvent:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -33,6 +33,7 @@
                   continueAfterRunningActions = "No"
                   symbolName = "swift_dynamicCastClassUnconditional"
                   moduleName = "libswiftCore.dylib"
+                  usesParentBreakpointCondition = "Yes"
                   offsetFromSymbolStart = "56">
                </Location>
             </Locations>
