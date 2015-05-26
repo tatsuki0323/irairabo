@@ -46,11 +46,16 @@ class GameScene: SKScene {
                 self.view?.presentScene(newScene, transition: tr)
                 last = currentTime
             }
+            if ball.position.y <= self.size.height*0.5-10 || self.size.height*0.5+10 <= ball.position.y{
+                let tr = SKTransition.revealWithDirection(SKTransitionDirection.Down, duration: 1)
+                let newScene = GameOverScene(size: self.scene!.size)
+                newScene.scaleMode = SKSceneScaleMode.AspectFill
+                self.view?.presentScene(newScene, transition: tr)
+                last = currentTime
+            }
         }
-        var slideSpeed:CGFloat = 5
+        var slideSpeed:CGFloat = 1
         background.position.x += slideSpeed //画像の位置変更
-        
-        
     }
 }
 
