@@ -21,6 +21,13 @@ class GameScene: SKScene {
         ball = SKSpriteNode(imageNamed:"sampleBall")//ボール画像の設定
         ball.position = CGPointMake(self.size.width*0.60,self.size.height*0.5)
         self.addChild(ball)
+        
+        let stageLabel = SKLabelNode(fontNamed: "Chalkduster")//スタートラベル
+        stageLabel.text = "すてーじ1"
+        stageLabel.fontSize = 20
+        stageLabel.position = CGPoint(x:CGRectGetMidX(self.frame)*0.6, y:CGRectGetMidY(self.frame)*2-50)
+        stageLabel.name = "Stage"
+        self.addChild(stageLabel)
         }
     
     override func touchesMoved(touches: Set<NSObject>,withEvent event: UIEvent){//ドラッグ処理
