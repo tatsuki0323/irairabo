@@ -15,11 +15,11 @@ class GameScene: SKScene {
     override func didMoveToView(view: SKView) {
         self.backgroundColor = UIColor.yellowColor()//背景色の設定
         background = SKSpriteNode(imageNamed:"sampleStage")//背景画像の設定
-        background.position = CGPointMake(self.size.width*0.5-500,self.size.height*0.5)
+        background.position = CGPointMake(-self.size.width*0.3,self.size.height*0.5)
         self.addChild(background)
 
-        ball = SKSpriteNode(imageNamed:"sampleBall")
-        ball.position = CGPointMake(self.size.width*0.5+200,self.size.height*0.5)
+        ball = SKSpriteNode(imageNamed:"sampleBall")//ボール画像の設定
+        ball.position = CGPointMake(self.size.width*0.60,self.size.height*0.5)
         self.addChild(ball)
         }
     
@@ -31,27 +31,26 @@ class GameScene: SKScene {
     }
    
     
-    override func update(currentTime: CFTimeInterval) {//毎時行うメソッド。上手く画面遷移しないから画面遷移の処理だけ1秒ごとに行う。
+    override func update(currentTime: CFTimeInterval) {//毎時行うメソッド。画面遷移する際に1秒他の動作をしないようにする
         // lastが未定義ならば、今の時間を入れる。
         if !(last != nil) {
             last = currentTime
         }
         
-        // 1秒おきに行う処理をかく。
         if last + 1 <= currentTime {
             if background.position.x >= self.size.width + 300{//ゲームをクリアした場合
                 let tr = SKTransition.revealWithDirection(SKTransitionDirection.Down, duration: 1)
                 let newScene = GameClearScene(size: self.scene!.size)
                 newScene.scaleMode = SKSceneScaleMode.AspectFill
+                last = currentTime//lastを初期化
                 self.view?.presentScene(newScene, transition: tr)
-                last = currentTime
             }
-            if ball.position.y <= self.size.height*0.5-10 || self.size.height*0.5+10 <= ball.position.y{
+            if (ball.position.y <= self.size.height*0.5-10.0) || (self.size.height*0.5+10.0 <= ball.position.y){//ゲームをクリアできなかった場合
                 let tr = SKTransition.revealWithDirection(SKTransitionDirection.Down, duration: 1)
                 let newScene = GameOverScene(size: self.scene!.size)
                 newScene.scaleMode = SKSceneScaleMode.AspectFill
+                last = currentTime//lastを初期化
                 self.view?.presentScene(newScene, transition: tr)
-                last = currentTime
             }
         }
         var slideSpeed:CGFloat = 1
