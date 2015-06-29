@@ -26,16 +26,15 @@ extension SKNode {
 }
 
 class GameViewController: UIViewController {
-
     override func viewDidLoad() {
         super.viewDidLoad()
-
         if let scene = TitleScene.unarchiveFromFile("TitleScene") as? TitleScene {
             // Configure the view.
             let skView = self.view as! SKView
             skView.showsFPS = true
             skView.showsNodeCount = true
-            
+            // シーンのサイズをビューに合わせる
+            //scene.size = skView.frame.size
             /* Sprite Kit applies additional optimizations to improve rendering performance */
             skView.ignoresSiblingOrder = true
             
