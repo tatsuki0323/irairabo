@@ -8,8 +8,8 @@
 
 import SpriteKit
 
-private var back_top = SKSpriteNode(imageNamed:"sampleStage_top")//背景
-private var back_bottom = SKSpriteNode(imageNamed:"sampleStage_bottom")//背景
+private var back_top = SKSpriteNode(imageNamed:"sampleStage3")//背景
+private var back_bottom = SKSpriteNode(imageNamed:"sampleStage2_bottom")//背景
 private var ball = SKSpriteNode(imageNamed:"sampleBall")//ボール画像
 //private var last: CFTimeInterval!
 
@@ -25,17 +25,18 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
         
         //ステージ上側
         back_top.name = "backTop"
-        back_top.physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: "sampleStage_top.png"),size:back_top.size)
+        back_top.physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: "sampleStage3.png"),size:back_top.size)
         back_top.physicsBody?.dynamic = false//動かないようにする
         back_top.position = CGPointMake(-self.size.width*0.3,self.size.height*0.5)
         self.addChild(back_top)
-        
+       /*
         //ステージ下側
         back_bottom.name = "backBottom"
-        back_bottom.physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: "sampleStage_bottom.png"),size:back_bottom.size)
+        back_bottom.physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: "sampleStage2_bottom.png"),size:back_bottom.size)
         back_bottom.physicsBody?.dynamic = false//動かないようにする
         back_bottom.position = CGPointMake(-self.size.width*0.3,self.size.height*0.5)
         self.addChild(back_bottom)
+        */
 
         //重力設定
         self.physicsWorld.gravity = CGVector(dx:0,dy:0)
@@ -68,6 +69,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
         
         //ステージのはじめに表示
         startStageLabel.text = "すてーじ1"
+       // startStageLabel.fontcolor = UIColor.blueColor()
         startStageLabel.fontSize = 20
         startStageLabel.position = CGPoint(x:self.size.width*0.5,y:self.size.height*0.8)
         startStageLabel.name = "CurrentStage"
