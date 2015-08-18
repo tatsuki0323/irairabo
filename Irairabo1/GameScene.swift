@@ -7,58 +7,64 @@
 //
 
 import SpriteKit
+import AVFoundation
 
-private var back_top = SKSpriteNode(imageNamed:"sampleStage4")//背景
-private var back_bottom = SKSpriteNode(imageNamed:"sampleStage2_bottom")//背景
-private var ball = SKSpriteNode(imageNamed:"sampleBall")//ボール画像
+private var myAudioPlayer : AVAudioPlayer!
+private var back = SKSpriteNode(imageNamed:"sampleStage4")//背景
+private var ball = SKSpriteNode(imageNamed:"sampleBall2")//ボール画像
+//private let frictionCircle = SKShapeNode()//当たり判定用の円
 private var last: CFTimeInterval!
 
 let stageLabel = SKLabelNode(fontNamed: "Chalkduster")//ステージラベル
 let startStageLabel = SKLabelNode(fontNamed: "Chalkduster")//今のステージを表示するラベル
 
-class GameScene: SKScene,SKPhysicsContactDelegate{
+class GameScene: SKScene,SKPhysicsContactDelegate,AVAudioPlayerDelegate{
     
     
     override func didMoveToView(view: SKView) {
         
-        self.backgroundColor = UIColor.yellowColor()//背景色の設定
+        //再生する音源のURLを生成.
+        let soundFilePath : NSString = NSBundle.mainBundle().pathForResource("se_explosion", ofType: "mp3")!
+        let fileURL : NSURL = NSURL(fileURLWithPath: soundFilePath as String)!
+            
+        //AVAudioPlayerのインスタンス化.
+        myAudioPlayer = AVAudioPlayer(contentsOfURL: fileURL, error: nil)
+            
+        //AVAudioPlayerのデリゲートをセット.
+        myAudioPlayer.delegate = self
         
-        //ステージ上側
-        back_top.name = "backTop"
-        back_top.physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: "sampleStage4.png"),size:back_top.size)
-        back_top.physicsBody?.dynamic = false//動かないようにする
-        //back_top.position = CGPointMake(-self.size.width*0.3,self.size.height*0.5)
-        back_top.position = CGPointMake(self.size.width*0.1,self.size.height*0.5)
-        self.addChild(back_top)
-       /*
-        //ステージ下側
-        back_bottom.name = "backBottom"
-        back_bottom.physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: "sampleStage2_bottom.png"),size:back_bottom.size)
-        back_bottom.physicsBody?.dynamic = false//動かないようにする
-        back_bottom.position = CGPointMake(-self.size.width*0.3,self.size.height*0.5)
-        self.addChild(back_bottom)
-        */
+        self.backgroundColor = UIColor.blackColor()//背景色の設定
+        //ステージ
+        back.name = "back"
+        back.physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: "sampleStage4.png"),size:back.size)
+        back.physicsBody?.dynamic = false//動かないようにする
+        //back.position = CGPointMake(-self.size.width*0.3,self.size.height*0.5)
+        back.position = CGPointMake(self.size.width*0.1,self.size.height*0.5)
+        self.addChild(back)
+     
 
         //重力設定
         self.physicsWorld.gravity = CGVector(dx:0,dy:0)
         self.physicsWorld.contactDelegate = self
 
-        /*
-        //ステージの移動
-        let moveA = SKAction.moveTo(CGPoint(x:1300,y:self.size.height*0.5), duration: 50)
-        let moveSequence = SKAction.sequence([moveA])
-        let moveRepeatAction = SKAction.repeatActionForever(moveSequence)
-        back_top.runAction(moveRepeatAction)
-        back_bottom.runAction(moveRepeatAction)
-        */
-
         
         //ボール作成
         ball.name = "ball"
-        ball.physicsBody = SKPhysicsBody(circleOfRadius: 50)
+        ball.physicsBody = SKPhysicsBody(circleOfRadius: 49)
         ball.physicsBody?.contactTestBitMask = 1
         ball.position = CGPointMake(self.size.width*0.60,self.size.height*0.5)
         self.addChild(ball)
+        
+        /*
+        //摩擦の判定用の円
+        frictionCircle.name = "frictionCircle"
+        frictionCircle.fillColor = UIColor.blueColor()
+        frictionCircle.physicsBody = SKPhysicsBody(circleOfRadius: 50)
+        frictionCircle.physicsBody?.contactTestBitMask = 0
+        frictionCircle.position = CGPointMake(self.size.width*0.60,self.size.height*0.5)
+        self.addChild(frictionCircle)
+
+        */
         
         //ステージ数を左上に表示
         stageLabel.text = "すてーじ1"
@@ -81,6 +87,8 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
     }
     
     override func touchesMoved(touches: Set<NSObject>,withEvent event: UIEvent){//ドラッグ処理
+        
+        
         // タッチイベントを取得.
         let aTouch = touches.first as! UITouch
         
@@ -98,62 +106,71 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
         // 移動した分の距離をmyFrameの座標にプラス、マイナスする.
         ball.position.x += deltaX
         ball.position.y -= deltaY
-        
-        /*
-        for touch: AnyObject in touches{
-            let location = touch.locationInNode(self)//現在位置の座標を取得
-            ball.position = CGPointMake(location.x,location.y)//ボールの位置変更
-        }
-        */
+        //frictionCircle.position.x += deltaX
+        //frictionCircle.position.y -= deltaY
+
     }
     
     func didBeginContact(contact: SKPhysicsContact) {
+        
+       
         if let nodeA = contact.bodyA.node {
             if let nodeB = contact.bodyB.node {
-                if nodeA.name == "backTop" ||
-                   nodeB.name == "backTop" ||
-                   nodeA.name == "backBottom" ||
-                   nodeB.name == "backBottom" ||
-                   nodeA.name == "ball" ||
-                   nodeB.name == "ball"
+                if (nodeA.name == "back" ||
+                   nodeB.name == "back" ) &&
+                   (nodeA.name == "ball" ||
+                   nodeB.name == "ball")
                 {
                     //ここに衝突が発生したときの処理を書く
-                    //パーティクルの作成
-                    let particle = SKEmitterNode(fileNamed: "SampleParticle.sks")
-                    self.addChild(particle)
                     
-                    // particleのもろもろの設定
-                    particle.numParticlesToEmit = 1000 // 何個、粒を出すか。
-                    particle.particleBirthRate = 500 // 一秒間に何個、粒を出すか。
-                    particle.particleSpeed = 100 // 粒の速度
-                    particle.xAcceleration = 0
-                    particle.yAcceleration = 0 // 加速度を0にすることで、重力がないようになる。
-
-                    //１秒後にパーティクルを削除する ぶつかるたびにパーティクルが増えて重くなる
-                    //var removeAction = SKAction.removeFromParent()
-                    //var durationAction = SKAction.waitForDuration(1)
-                    //var sequenceAction = SKAction.sequence([durationAction,removeAction])
-                    //particle.runAction(sequenceAction)
-                    
-                    //ボールの位置にパーティクル移動
-                    //particle.position = CGPoint(x:ball.position.x, y:ball.position.y)
-                    //particle.alpha = 1
-                    //画面線した場合にまたラベルを表示させる
-                    startStageLabel.alpha = 1.0;
-                    
-                    //var fadeAction = SKAction.fadeAlphaTo(0, duration: 1.0)
-                    //particle.runAction(fadeAction)
                     
                     startStageLabel.removeFromParent()
                     ball.removeFromParent()
-                    back_top.removeFromParent()
-                    back_bottom.removeFromParent()
+                    back.removeFromParent()
+                   // frictionCircle.removeFromParent()
+                    
+                    
+                    
+                    // lastが未定義ならば、今の時間を入れる。
                    
-                    let tr = SKTransition.revealWithDirection(SKTransitionDirection.Down, duration: 1)
-                    let newScene = GameOverScene(size: self.scene!.size)
-                    newScene.scaleMode = SKSceneScaleMode.AspectFill
-                    self.view?.presentScene(newScene, transition: tr)
+                        myAudioPlayer.play()
+                    
+                        sleep(1)
+                    
+                        let tr = SKTransition.revealWithDirection(SKTransitionDirection.Down, duration: 1)
+                        let newScene = GameOverScene(size: self.scene!.size)
+                        newScene.scaleMode = SKSceneScaleMode.AspectFill
+                        
+                        self.view?.presentScene(newScene, transition: tr)
                 }
+               /*
+                if (nodeA.name == "back" ||
+                    nodeB.name == "back" ) &&
+                    (nodeA.name == "frictionCircle" ||
+                        nodeB.name == "frictionCircle")
+                {
+                    //ぶつかりそうになったときの処理を書く
+                    //パーティクルの作成
+                    let bombParticle = SKEmitterNode(fileNamed: "BombParticle.sks")
+                    self.addChild(bombParticle)
+                    
+                    //１秒後にパーティクルを削除する ぶつかるたびにパーティクルが増えて重くなる
+                    var removeAction = SKAction.removeFromParent()
+                    var durationAction = SKAction.waitForDuration(1)
+                    var sequenceAction = SKAction.sequence([durationAction,removeAction])
+                    bombParticle.runAction(sequenceAction)
+                    
+                    //ボールの位置にパーティクル移動
+                    bombParticle.position = CGPoint(x:ball.position.x, y:ball.position.y-50)
+                    bombParticle.alpha = 1
+                    //画面線した場合にまたラベルを表示させる
+                    startStageLabel.alpha = 1.0;
+                    
+                    var fadeAction = SKAction.fadeAlphaTo(0, duration: 1.0)
+                    bombParticle.runAction(fadeAction)
+                    
+                }
+                */
             }
         }
     }
@@ -166,13 +183,12 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
         }
         
         if last + 1 <= currentTime {
-            if back_top.position.x >= self.size.width + 500{//ゲームをクリアした場合
+            if back.position.x >= self.size.width + 500{//ゲームをクリアした場合
                 startStageLabel.alpha = 1.0;
                 startStageLabel.removeFromParent()
                 ball.removeFromParent()
-                back_top.removeFromParent()
-                back_bottom.removeFromParent()
-
+                back.removeFromParent()
+                
                 
                 let tr = SKTransition.revealWithDirection(SKTransitionDirection.Down, duration: 1)
                 let newScene = GameClearScene(size: self.scene!.size)
@@ -181,8 +197,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
                 self.view?.presentScene(newScene, transition: tr)
             }
         }
-        back_top.position.x += 1;
-        back_bottom.position.x += 1;
+        back.position.x += 1;
     }
 }
 

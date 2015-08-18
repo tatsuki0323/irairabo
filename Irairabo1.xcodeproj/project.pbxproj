@@ -10,7 +10,9 @@
 		B00706CB1B26E178000951DE /* SampleParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = B00706C91B26E178000951DE /* SampleParticle.sks */; };
 		B00706CC1B26E178000951DE /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = B00706CA1B26E178000951DE /* spark.png */; };
 		B01A924F1B1465B80064889D /* GameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01A924E1B1465B80064889D /* GameOverScene.swift */; };
+		B0348AC21B8235080072D618 /* se_explosion.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B0348AC11B8235080072D618 /* se_explosion.mp3 */; };
 		B05D3B0D1AF22685007ACFAC /* TitleScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05D3B0C1AF22685007ACFAC /* TitleScene.swift */; };
+		B06EADAC1B54FCF000234606 /* BombParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = B06EADAB1B54FCF000234606 /* BombParticle.sks */; };
 		B0A62D811ABFC2C500268A55 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A62D801ABFC2C500268A55 /* AppDelegate.swift */; };
 		B0A62D831ABFC2C500268A55 /* TitleScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = B0A62D821ABFC2C500268A55 /* TitleScene.sks */; };
 		B0A62D851ABFC2C500268A55 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A62D841ABFC2C500268A55 /* GameScene.swift */; };
@@ -36,7 +38,9 @@
 		B00706C91B26E178000951DE /* SampleParticle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = SampleParticle.sks; sourceTree = "<group>"; };
 		B00706CA1B26E178000951DE /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
 		B01A924E1B1465B80064889D /* GameOverScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOverScene.swift; sourceTree = "<group>"; };
+		B0348AC11B8235080072D618 /* se_explosion.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = se_explosion.mp3; sourceTree = "<group>"; };
 		B05D3B0C1AF22685007ACFAC /* TitleScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleScene.swift; sourceTree = "<group>"; };
+		B06EADAB1B54FCF000234606 /* BombParticle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = BombParticle.sks; path = ../BombParticle.sks; sourceTree = "<group>"; };
 		B0A62D7B1ABFC2C500268A55 /* Irairabo1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Irairabo1.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0A62D7F1ABFC2C500268A55 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B0A62D801ABFC2C500268A55 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -91,7 +95,9 @@
 		B0A62D7D1ABFC2C500268A55 /* Irairabo1 */ = {
 			isa = PBXGroup;
 			children = (
+				B06EADAB1B54FCF000234606 /* BombParticle.sks */,
 				B0A62D801ABFC2C500268A55 /* AppDelegate.swift */,
+				B0348AC11B8235080072D618 /* se_explosion.mp3 */,
 				B0A62D821ABFC2C500268A55 /* TitleScene.sks */,
 				B0A62D841ABFC2C500268A55 /* GameScene.swift */,
 				B00706C91B26E178000951DE /* SampleParticle.sks */,
@@ -216,9 +222,11 @@
 			files = (
 				B0A62D8F1ABFC2C500268A55 /* LaunchScreen.xib in Resources */,
 				B00706CC1B26E178000951DE /* spark.png in Resources */,
+				B06EADAC1B54FCF000234606 /* BombParticle.sks in Resources */,
 				B0A62D8C1ABFC2C500268A55 /* Images.xcassets in Resources */,
 				B0A62D831ABFC2C500268A55 /* TitleScene.sks in Resources */,
 				B0A62D8A1ABFC2C500268A55 /* Main.storyboard in Resources */,
+				B0348AC21B8235080072D618 /* se_explosion.mp3 in Resources */,
 				B00706CB1B26E178000951DE /* SampleParticle.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

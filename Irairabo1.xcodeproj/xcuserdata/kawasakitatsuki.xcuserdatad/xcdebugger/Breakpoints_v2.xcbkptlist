@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Irairabo1/GameScene.swift"
-            timestampString = "458126982.556962"
+            timestampString = "461603322.682781"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "102"
-            endingLineNumber = "102"
+            startingLineNumber = "109"
+            endingLineNumber = "109"
             landmarkName = "touchesMoved(_:withEvent:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -46,11 +46,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Irairabo1/GameScene.swift"
-            timestampString = "457375178.285591"
+            timestampString = "461603322.682781"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "20"
-            endingLineNumber = "20"
+            startingLineNumber = "22"
+            endingLineNumber = "22"
             landmarkName = "GameScene"
             landmarkType = "3">
          </BreakpointContent>
@@ -62,13 +62,43 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Irairabo1/GameScene.swift"
-            timestampString = "458124312.918032"
+            timestampString = "461603322.682781"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "66"
-            endingLineNumber = "66"
+            startingLineNumber = "72"
+            endingLineNumber = "72"
             landmarkName = "didMoveToView(_:)"
             landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Irairabo1/GameScene.swift"
+            timestampString = "461604470.333142"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "176"
+            endingLineNumber = "176"
+            landmarkName = "didBeginContact(_:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Irairabo1/GameScene.swift"
+            timestampString = "461600755.008989"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "16"
+            endingLineNumber = "16">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
