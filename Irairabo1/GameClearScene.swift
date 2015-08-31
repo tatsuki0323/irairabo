@@ -22,11 +22,19 @@ class GameClearScene: SKScene {
         
         // 戻るための「Back」ラベルを作成。
         let backLabel = SKLabelNode(fontNamed: "Chalkduster")
-        backLabel.text = "タイトルに戻る"
+        backLabel.text = "タイトルにもどる"
         backLabel.fontSize = 36
         backLabel.position = CGPoint(x: CGRectGetMidX(self.frame), y: 200)
         backLabel.name = "Back"
         self.addChild(backLabel)
+        
+        // 次のステージに進むための「next」ラベルを作成。
+        let nextLabel = SKLabelNode(fontNamed: "Chalkduster")
+        nextLabel.text = "つぎのステージにすすむ"
+        nextLabel.fontSize = 36
+        nextLabel.position = CGPoint(x: CGRectGetMidX(self.frame), y: 300)
+        nextLabel.name = "next"
+        self.addChild(nextLabel)
     }
     
       override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
@@ -40,6 +48,14 @@ class GameClearScene: SKScene {
             newScene.scaleMode = SKSceneScaleMode.AspectFill
             self.view?.presentScene(newScene, transition: tr)
         }
+        
+        if touchedNode.name == "next" {
+            let tr = SKTransition.revealWithDirection(SKTransitionDirection.Down, duration: 1)
+            let newScene = GameScene(size: self.scene!.size)
+            newScene.scaleMode = SKSceneScaleMode.AspectFill
+            self.view?.presentScene(newScene, transition: tr)
+        }
+
     }
 }
     
