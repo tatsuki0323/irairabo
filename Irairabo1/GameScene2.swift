@@ -67,15 +67,15 @@ class GameScene2: SKScene,SKPhysicsContactDelegate,AVAudioPlayerDelegate{
         */
         
         //ステージ数を左上に表示
-        stageLabel2.text = "すてーじ1"
+        stageLabel2.text = "すてーじ2"
         stageLabel2.fontSize = 20
         //stageLabel.position = CGPoint(x:CGRectGetMidX(self.frame)*0.7, y:CGRectGetMidY(self.frame)*2-50)
         stageLabel2.position = CGPoint(x:300, y:750)
-        stageLabel2.name = "Stage1"
+        stageLabel2.name = "Stage2"
         self.addChild(stageLabel2)
         
         //ステージのはじめに表示
-        startStageLabel2.text = "すてーじ1"
+        startStageLabel2.text = "すてーじ2"
         startStageLabel2.fontSize = 20
         startStageLabel2.fontColor = UIColor.blueColor()
         startStageLabel2.position = CGPoint(x:self.size.width*0.5,y:self.size.height*0.8)
@@ -135,7 +135,7 @@ class GameScene2: SKScene,SKPhysicsContactDelegate,AVAudioPlayerDelegate{
                     
                     myAudioPlayer.play()
                     
-                    sleep(1)
+                    usleep(500)
                     
                     let tr = SKTransition.revealWithDirection(SKTransitionDirection.Down, duration: 1)
                     let newScene = GameOverScene(size: self.scene!.size)

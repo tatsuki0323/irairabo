@@ -51,7 +51,7 @@ class GameClearScene: SKScene {
         
         if touchedNode.name == "next" {
             let tr = SKTransition.revealWithDirection(SKTransitionDirection.Down, duration: 1)
-            let newScene = GameScene(size: self.scene!.size)
+            let newScene = GameScene2(size: self.scene!.size)
             newScene.scaleMode = SKSceneScaleMode.AspectFill
             self.view?.presentScene(newScene, transition: tr)
         }

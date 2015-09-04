@@ -12,6 +12,7 @@ import AVFoundation
 private var myAudioPlayer : AVAudioPlayer!
 private var back = SKSpriteNode(imageNamed:"sampleStage4")//背景
 private var ball = SKSpriteNode(imageNamed:"sampleBall2")//ボール画像
+private var obstacle = SKSpriteNode(imageNamed:"obstacle")//ボール画像
 //private let frictionCircle = SKShapeNode()//当たり判定用の円
 private var last: CFTimeInterval!
 
@@ -50,21 +51,19 @@ class GameScene: SKScene,SKPhysicsContactDelegate,AVAudioPlayerDelegate{
         
         //ボール作成
         ball.name = "ball"
-        ball.physicsBody = SKPhysicsBody(circleOfRadius: 49)
+        ball.physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: "sampleBall2.png"),size:ball.size)
         ball.physicsBody?.contactTestBitMask = 1
         ball.position = CGPointMake(self.size.width*0.60,self.size.height*0.5)
         self.addChild(ball)
         
-        /*
-        //摩擦の判定用の円
-        frictionCircle.name = "frictionCircle"
-        frictionCircle.fillColor = UIColor.blueColor()
-        frictionCircle.physicsBody = SKPhysicsBody(circleOfRadius: 50)
-        frictionCircle.physicsBody?.contactTestBitMask = 0
-        frictionCircle.position = CGPointMake(self.size.width*0.60,self.size.height*0.5)
-        self.addChild(frictionCircle)
-
-        */
+        //障害物作成
+        obstacle.name = "obstacle"
+        obstacle.physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: "obstacle.png"),size:obstacle.size)
+        //obstacle.physicsBody?.contactTestBitMask = 0
+        //obstacle.physicsBody?.categoryBitMask = 0
+        obstacle.physicsBody?.collisionBitMask = 0
+        obstacle.position = CGPointMake(0,self.size.height*0.5)
+        self.addChild(obstacle)
         
         //ステージ数を左上に表示
         stageLabel.text = "すてーじ1"
@@ -106,8 +105,6 @@ class GameScene: SKScene,SKPhysicsContactDelegate,AVAudioPlayerDelegate{
         // 移動した分の距離をmyFrameの座標にプラス、マイナスする.
         ball.position.x += deltaX
         ball.position.y -= deltaY
-        //frictionCircle.position.x += deltaX
-        //frictionCircle.position.y -= deltaY
 
     }
     
@@ -122,12 +119,10 @@ class GameScene: SKScene,SKPhysicsContactDelegate,AVAudioPlayerDelegate{
                    nodeB.name == "ball")
                 {
                     //ここに衝突が発生したときの処理を書く
-                    
-                    
                     startStageLabel.removeFromParent()
                     ball.removeFromParent()
                     back.removeFromParent()
-                   // frictionCircle.removeFromParent()
+                    obstacle.removeFromParent()
                     
                     
                     
@@ -143,6 +138,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate,AVAudioPlayerDelegate{
                         
                         self.view?.presentScene(newScene, transition: tr)
                 }
+            
                /*
                 if (nodeA.name == "back" ||
                     nodeB.name == "back" ) &&
@@ -188,7 +184,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate,AVAudioPlayerDelegate{
                 startStageLabel.removeFromParent()
                 ball.removeFromParent()
                 back.removeFromParent()
-                
+                obstacle.removeFromParent()
                 
                 let tr = SKTransition.revealWithDirection(SKTransitionDirection.Down, duration: 1)
                 let newScene = GameClearScene(size: self.scene!.size)
@@ -197,7 +193,10 @@ class GameScene: SKScene,SKPhysicsContactDelegate,AVAudioPlayerDelegate{
                 self.view?.presentScene(newScene, transition: tr)
             }
         }
-        back.position.x += 1;
+        back.position.x += 1
+        obstacle.position.x += 1
+        obstacle.position.y = self.size.height*0.5 + 300*sin(obstacle.position.x/50)
+
     }
 }
 
