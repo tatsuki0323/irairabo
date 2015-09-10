@@ -7,10 +7,23 @@
 //
 
 import SpriteKit
+import AVFoundation
 
-class GameClearScene: SKScene {
+private var myAudioPlayer : AVAudioPlayer!
+
+class GameClearScene: SKScene,AVAudioPlayerDelegate{
     
     override func didMoveToView(view: SKView) {
+        //再生する音源のURLを生成.
+        let soundFilePath : NSString = NSBundle.mainBundle().pathForResource("se_clear", ofType: "mp3")!
+        let fileURL : NSURL = NSURL(fileURLWithPath: soundFilePath as String)!
+        
+        //AVAudioPlayerのインスタンス化.
+        myAudioPlayer = AVAudioPlayer(contentsOfURL: fileURL, error: nil)
+        
+        //AVAudioPlayerのデリゲートをセット.
+        myAudioPlayer.delegate = self
+        myAudioPlayer.play()
         self.backgroundColor = UIColor(red:0,green:0,blue:0,alpha:0)//背景色の設定
         let clearLabel = SKLabelNode(fontNamed: "Chalkduster")//スタートラベル
         clearLabel.text = "くりあー"
@@ -51,7 +64,7 @@ class GameClearScene: SKScene {
         
         if touchedNode.name == "next" {
             let tr = SKTransition.revealWithDirection(SKTransitionDirection.Down, duration: 1)
-            let newScene = GameScene2(size: self.scene!.size)
+            let newScene = GameScene(size: self.scene!.size)
             newScene.scaleMode = SKSceneScaleMode.AspectFill
             self.view?.presentScene(newScene, transition: tr)
         }

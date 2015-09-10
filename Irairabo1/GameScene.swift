@@ -10,22 +10,21 @@ import SpriteKit
 import AVFoundation
 
 private var myAudioPlayer : AVAudioPlayer!
-private var back = SKSpriteNode(imageNamed:"sampleStage4")//背景
+private var back = SKSpriteNode(imageNamed:"stage1")//背景
 private var ball = SKSpriteNode(imageNamed:"sampleBall2")//ボール画像
-private var obstacle = SKSpriteNode(imageNamed:"obstacle")//ボール画像
+private var obstacle = SKSpriteNode(imageNamed:"obstacle")//障害物画像
 //private let frictionCircle = SKShapeNode()//当たり判定用の円
 private var last: CFTimeInterval!
 
-let stageLabel = SKLabelNode(fontNamed: "Chalkduster")//ステージラベル
+let stageLabel = SKLabelNode(fontNamed: "Chalkduster")//左上のステージラベル
 let startStageLabel = SKLabelNode(fontNamed: "Chalkduster")//今のステージを表示するラベル
 
+
 class GameScene: SKScene,SKPhysicsContactDelegate,AVAudioPlayerDelegate{
-    
-    
     override func didMoveToView(view: SKView) {
         
         //再生する音源のURLを生成.
-        let soundFilePath : NSString = NSBundle.mainBundle().pathForResource("se_explosion", ofType: "mp3")!
+        let soundFilePath : NSString = NSBundle.mainBundle().pathForResource("bgm_pop", ofType: "mp3")!
         let fileURL : NSURL = NSURL(fileURLWithPath: soundFilePath as String)!
             
         //AVAudioPlayerのインスタンス化.
@@ -33,14 +32,14 @@ class GameScene: SKScene,SKPhysicsContactDelegate,AVAudioPlayerDelegate{
             
         //AVAudioPlayerのデリゲートをセット.
         myAudioPlayer.delegate = self
-        
-        self.backgroundColor = UIColor.blackColor()//背景色の設定
+        myAudioPlayer.play()
+        self.backgroundColor = UIColor.yellowColor()//背景色の設定
         //ステージ
         back.name = "back"
-        back.physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: "sampleStage4.png"),size:back.size)
+        back.physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: "stage1.png"),size:back.size)
         back.physicsBody?.dynamic = false//動かないようにする
         //back.position = CGPointMake(-self.size.width*0.3,self.size.height*0.5)
-        back.position = CGPointMake(self.size.width*0.1,self.size.height*0.5)
+        back.position = CGPointMake(self.size.width*0,self.size.height*0.5)
         self.addChild(back)
      
 
@@ -81,8 +80,9 @@ class GameScene: SKScene,SKPhysicsContactDelegate,AVAudioPlayerDelegate{
         startStageLabel.name = "CurrentStage"
         self.addChild(startStageLabel)
         
-        var labelfadeAction = SKAction.fadeAlphaTo(0, duration: 2.0)
-        startStageLabel.runAction(labelfadeAction)
+        var labelFadeOutAction = SKAction.fadeAlphaTo(0, duration: 2.0)
+        startStageLabel.runAction(labelFadeOutAction)
+        
     }
     
     override func touchesMoved(touches: Set<NSObject>,withEvent event: UIEvent){//ドラッグ処理
@@ -123,23 +123,22 @@ class GameScene: SKScene,SKPhysicsContactDelegate,AVAudioPlayerDelegate{
                     ball.removeFromParent()
                     back.removeFromParent()
                     obstacle.removeFromParent()
-                    
+                   
+                    //画面線した場合にまたラベルを表示させる
+                    startStageLabel.alpha = 1.0
+
                     
                     
                     // lastが未定義ならば、今の時間を入れる。
                    
-                        myAudioPlayer.play()
-                    
-                        sleep(1)
+                        myAudioPlayer.stop()//BGMストップ
                     
                         let tr = SKTransition.revealWithDirection(SKTransitionDirection.Down, duration: 1)
                         let newScene = GameOverScene(size: self.scene!.size)
                         newScene.scaleMode = SKSceneScaleMode.AspectFill
-                        
-                        self.view?.presentScene(newScene, transition: tr)
+                                               self.view?.presentScene(newScene, transition: tr)
                 }
-            
-               /*
+                               /*
                 if (nodeA.name == "back" ||
                     nodeB.name == "back" ) &&
                     (nodeA.name == "frictionCircle" ||
@@ -159,8 +158,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate,AVAudioPlayerDelegate{
                     //ボールの位置にパーティクル移動
                     bombParticle.position = CGPoint(x:ball.position.x, y:ball.position.y-50)
                     bombParticle.alpha = 1
-                    //画面線した場合にまたラベルを表示させる
-                    startStageLabel.alpha = 1.0;
+                
                     
                     var fadeAction = SKAction.fadeAlphaTo(0, duration: 1.0)
                     bombParticle.runAction(fadeAction)
@@ -180,6 +178,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate,AVAudioPlayerDelegate{
         
         if last + 1 <= currentTime {
             if back.position.x >= self.size.width + 500{//ゲームをクリアした場合
+                myAudioPlayer.stop()//BGM終了
                 startStageLabel.alpha = 1.0;
                 startStageLabel.removeFromParent()
                 ball.removeFromParent()
