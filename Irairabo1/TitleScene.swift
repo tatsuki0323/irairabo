@@ -27,14 +27,14 @@ class TitleScene: SKScene {
         self.addChild(titleLabel)
     }
     
-    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
-        let touch = touches.first as! UITouch
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        let touch = touches.first! as UITouch
         let location = touch.locationInNode(self)
         let touchedNode = self.nodeAtPoint(location)
         
         if touchedNode.name == "Start" {
             let tr = SKTransition.revealWithDirection(SKTransitionDirection.Down, duration: 1)
-            let newScene = GameScene(size: self.scene!.size)
+            let newScene = GameScene4(size: self.scene!.size)
             newScene.scaleMode = SKSceneScaleMode.AspectFill
             self.view?.presentScene(newScene, transition: tr)
         }

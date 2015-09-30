@@ -16,10 +16,10 @@ class GameClearScene: SKScene,AVAudioPlayerDelegate{
     override func didMoveToView(view: SKView) {
         //再生する音源のURLを生成.
         let soundFilePath : NSString = NSBundle.mainBundle().pathForResource("se_clear", ofType: "mp3")!
-        let fileURL : NSURL = NSURL(fileURLWithPath: soundFilePath as String)!
+        let fileURL : NSURL = NSURL(fileURLWithPath: soundFilePath as String)
         
         //AVAudioPlayerのインスタンス化.
-        myAudioPlayer = AVAudioPlayer(contentsOfURL: fileURL, error: nil)
+        myAudioPlayer = try? AVAudioPlayer(contentsOfURL: fileURL)
         
         //AVAudioPlayerのデリゲートをセット.
         myAudioPlayer.delegate = self
@@ -50,12 +50,13 @@ class GameClearScene: SKScene,AVAudioPlayerDelegate{
         self.addChild(nextLabel)
     }
     
-      override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
-        let touch = touches.first as! UITouch
+      override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        let touch = touches.first! as UITouch
         let location = touch.locationInNode(self)
         let touchedNode = self.nodeAtPoint(location)
         
         if touchedNode.name == "Back" {
+            myAudioPlayer.stop()
             let tr = SKTransition.revealWithDirection(SKTransitionDirection.Down, duration: 1)
             let newScene = TitleScene(size: self.scene!.size)
             newScene.scaleMode = SKSceneScaleMode.AspectFill
@@ -63,8 +64,9 @@ class GameClearScene: SKScene,AVAudioPlayerDelegate{
         }
         
         if touchedNode.name == "next" {
+            myAudioPlayer.stop()
             let tr = SKTransition.revealWithDirection(SKTransitionDirection.Down, duration: 1)
-            let newScene = GameScene(size: self.scene!.size)
+            let newScene = GameScene2(size: self.scene!.size)
             newScene.scaleMode = SKSceneScaleMode.AspectFill
             self.view?.presentScene(newScene, transition: tr)
         }

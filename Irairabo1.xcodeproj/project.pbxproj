@@ -11,10 +11,13 @@
 		B00706CC1B26E178000951DE /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = B00706CA1B26E178000951DE /* spark.png */; };
 		B01A924F1B1465B80064889D /* GameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01A924E1B1465B80064889D /* GameOverScene.swift */; };
 		B0348AC21B8235080072D618 /* se_explosion.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B0348AC11B8235080072D618 /* se_explosion.mp3 */; };
+		B0350F7F1BB2849B00972FD8 /* GameScene4.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0350F7E1BB2849B00972FD8 /* GameScene4.swift */; };
 		B05D3B0D1AF22685007ACFAC /* TitleScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05D3B0C1AF22685007ACFAC /* TitleScene.swift */; };
 		B06EADAC1B54FCF000234606 /* BombParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = B06EADAB1B54FCF000234606 /* BombParticle.sks */; };
 		B087A0F81BA12E0900F45F38 /* bgm_pop.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B087A0F71BA12E0900F45F38 /* bgm_pop.mp3 */; };
 		B087A0FA1BA1349600F45F38 /* se_clear.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B087A0F91BA1349600F45F38 /* se_clear.mp3 */; };
+		B087A0FC1BA172D700F45F38 /* GameScene2.swift in Sources */ = {isa = PBXBuildFile; fileRef = B087A0FB1BA172D700F45F38 /* GameScene2.swift */; };
+		B087A0FE1BA3FE8C00F45F38 /* GameScene3.swift in Sources */ = {isa = PBXBuildFile; fileRef = B087A0FD1BA3FE8C00F45F38 /* GameScene3.swift */; };
 		B0A62D811ABFC2C500268A55 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A62D801ABFC2C500268A55 /* AppDelegate.swift */; };
 		B0A62D831ABFC2C500268A55 /* TitleScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = B0A62D821ABFC2C500268A55 /* TitleScene.sks */; };
 		B0A62D851ABFC2C500268A55 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A62D841ABFC2C500268A55 /* GameScene.swift */; };
@@ -41,10 +44,13 @@
 		B00706CA1B26E178000951DE /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
 		B01A924E1B1465B80064889D /* GameOverScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOverScene.swift; sourceTree = "<group>"; };
 		B0348AC11B8235080072D618 /* se_explosion.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = se_explosion.mp3; sourceTree = "<group>"; };
+		B0350F7E1BB2849B00972FD8 /* GameScene4.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameScene4.swift; sourceTree = "<group>"; };
 		B05D3B0C1AF22685007ACFAC /* TitleScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleScene.swift; sourceTree = "<group>"; };
 		B06EADAB1B54FCF000234606 /* BombParticle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = BombParticle.sks; path = ../BombParticle.sks; sourceTree = "<group>"; };
 		B087A0F71BA12E0900F45F38 /* bgm_pop.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bgm_pop.mp3; sourceTree = "<group>"; };
 		B087A0F91BA1349600F45F38 /* se_clear.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = se_clear.mp3; sourceTree = "<group>"; };
+		B087A0FB1BA172D700F45F38 /* GameScene2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameScene2.swift; sourceTree = "<group>"; };
+		B087A0FD1BA3FE8C00F45F38 /* GameScene3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameScene3.swift; sourceTree = "<group>"; };
 		B0A62D7B1ABFC2C500268A55 /* Irairabo1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Irairabo1.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0A62D7F1ABFC2C500268A55 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B0A62D801ABFC2C500268A55 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -106,6 +112,9 @@
 				B087A0F71BA12E0900F45F38 /* bgm_pop.mp3 */,
 				B0A62D821ABFC2C500268A55 /* TitleScene.sks */,
 				B0A62D841ABFC2C500268A55 /* GameScene.swift */,
+				B087A0FB1BA172D700F45F38 /* GameScene2.swift */,
+				B087A0FD1BA3FE8C00F45F38 /* GameScene3.swift */,
+				B0350F7E1BB2849B00972FD8 /* GameScene4.swift */,
 				B00706C91B26E178000951DE /* SampleParticle.sks */,
 				B00706CA1B26E178000951DE /* spark.png */,
 				B0D2931E1B04A504003410F2 /* GameClearScene.swift */,
@@ -189,7 +198,9 @@
 		B0A62D731ABFC2C500268A55 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0610;
+				LastSwiftMigration = 0700;
+				LastSwiftUpdateCheck = 0700;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "川崎　樹";
 				TargetAttributes = {
 					B0A62D7A1ABFC2C500268A55 = {
@@ -255,9 +266,12 @@
 			files = (
 				B0A62D851ABFC2C500268A55 /* GameScene.swift in Sources */,
 				B0A62D871ABFC2C500268A55 /* GameViewController.swift in Sources */,
+				B0350F7F1BB2849B00972FD8 /* GameScene4.swift in Sources */,
 				B0D2931F1B04A504003410F2 /* GameClearScene.swift in Sources */,
+				B087A0FC1BA172D700F45F38 /* GameScene2.swift in Sources */,
 				B0A62D811ABFC2C500268A55 /* AppDelegate.swift in Sources */,
 				B01A924F1B1465B80064889D /* GameOverScene.swift in Sources */,
+				B087A0FE1BA3FE8C00F45F38 /* GameScene3.swift in Sources */,
 				B05D3B0D1AF22685007ACFAC /* TitleScene.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -320,6 +334,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -384,6 +399,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = Irairabo1/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "jp.ac.kyotosu.project.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -396,6 +412,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = Irairabo1/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "jp.ac.kyotosu.project.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -415,6 +432,7 @@
 				);
 				INFOPLIST_FILE = Irairabo1Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "jp.ac.kyotosu.project.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Irairabo1.app/Irairabo1";
 			};
@@ -430,6 +448,7 @@
 				);
 				INFOPLIST_FILE = Irairabo1Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "jp.ac.kyotosu.project.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Irairabo1.app/Irairabo1";
 			};
