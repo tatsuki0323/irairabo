@@ -9,7 +9,6 @@
 import UIKit
 import SpriteKit
 
-
 extension SKNode {
     class func unarchiveFromFile(file : NSString) -> SKNode? {
         if let path = NSBundle.mainBundle().pathForResource(file as String, ofType: "sks") {

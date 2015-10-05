@@ -34,16 +34,20 @@ class GameScene4: SKScene,SKPhysicsContactDelegate,AVAudioPlayerDelegate{
         //AVAudioPlayerのデリゲートをセット.
         myAudioPlayer.delegate = self
         myAudioPlayer.play()
+        
         //背景
         sky.name = "backSample"
         sky.physicsBody?.dynamic = false//動かないようにする
         //back.position = CGPointMake(-self.size.width*0.3,self.size.height*0.5)
         sky.position = CGPointMake(self.size.width*0.2,self.size.height*0.5)
+        /*
         sky.runAction(SKAction.repeatActionForever(
             SKAction.sequence([
                 SKAction.moveToX(1200.0, duration: 15.0),
                 SKAction.moveToX(self.size.width-1250.0, duration: 0.0)])))
         self.addChild(sky)
+        */
+
         //ステージ
         back.name = "back"
         back.physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: "sampleStage4.png"),size:back.size)
@@ -131,12 +135,11 @@ class GameScene4: SKScene,SKPhysicsContactDelegate,AVAudioPlayerDelegate{
                     startStageLabel4.removeFromParent()
                     ball.removeFromParent()
                     back.removeFromParent()
-                    sky.removeFromParent()
+                    //sky.removeFromParent()
                     obstacle3.removeFromParent()
                     
                     //画面線した場合にまたラベルを表示させる
                     startStageLabel4.alpha = 1.0
-                    
                     
                     
                     // lastが未定義ならば、今の時間を入れる。
@@ -144,7 +147,7 @@ class GameScene4: SKScene,SKPhysicsContactDelegate,AVAudioPlayerDelegate{
                     myAudioPlayer.stop()//BGMストップ
                     
                     let tr = SKTransition.revealWithDirection(SKTransitionDirection.Down, duration: 1)
-                    let newScene = GameOverScene(size: self.scene!.size)
+                    let newScene = GameOverScene4(size: self.scene!.size)
                     newScene.scaleMode = SKSceneScaleMode.AspectFill
                     self.view?.presentScene(newScene, transition: tr)
                 }
@@ -193,16 +196,18 @@ class GameScene4: SKScene,SKPhysicsContactDelegate,AVAudioPlayerDelegate{
                 startStageLabel4.removeFromParent()
                 ball.removeFromParent()
                 back.removeFromParent()
+                //sky.removeFromParent()
                // obstacle3.removeFromParent()
                 
                 let tr = SKTransition.revealWithDirection(SKTransitionDirection.Down, duration: 1)
-                let newScene = GameClearScene(size: self.scene!.size)
+                let newScene = GameClearScene4(size: self.scene!.size)
                 newScene.scaleMode = SKSceneScaleMode.AspectFill
                 last = currentTime//lastを初期化
                 self.view?.presentScene(newScene, transition: tr)
             }
         }
         back.position.x += 1
+        sky.position.x += 1
         if(obstacle3.position.x >= back.position.x-753){
             if(obstacle3.position.x >= ball.position.x && obstacle3.position.y >= ball.position.y){
                 obstacle3.position.x -= 0.5

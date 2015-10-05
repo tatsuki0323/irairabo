@@ -33,7 +33,7 @@ class GameClearScene: SKScene,AVAudioPlayerDelegate{
         self.addChild(clearLabel)
         
         
-        // 戻るための「Back」ラベルを作成。
+        // タイトルに戻るための「Back」ラベルを作成。
         let backLabel = SKLabelNode(fontNamed: "Chalkduster")
         backLabel.text = "タイトルにもどる"
         backLabel.fontSize = 36

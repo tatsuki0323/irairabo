@@ -1,9 +1,9 @@
 //
-//  GameOverScene.swift
+//  GameOverScene4.swift
 //  Irairabo1
 //
-//  Created by 川崎　樹 on 2015/05/26.
-//  Copyright (c) 2015年 川崎　樹. All rights reserved.
+//  Created by 川崎　樹 on 2015/10/05.
+//  Copyright © 2015年 川崎　樹. All rights reserved.
 //
 
 import SpriteKit
@@ -11,7 +11,7 @@ import AVFoundation
 
 private var myAudioPlayer : AVAudioPlayer!
 
-class GameOverScene: SKScene,AVAudioPlayerDelegate {
+class GameOverScene4: SKScene,AVAudioPlayerDelegate {
     
     override func didMoveToView(view: SKView) {
         //再生する音源のURLを生成.
@@ -49,7 +49,7 @@ class GameOverScene: SKScene,AVAudioPlayerDelegate {
         returnLabel.name = "Return"
         self.addChild(returnLabel)
         
-
+        
         
     }
     
@@ -69,10 +69,11 @@ class GameOverScene: SKScene,AVAudioPlayerDelegate {
         if touchedNode.name == "Return" {
             myAudioPlayer.stop()
             let tr = SKTransition.revealWithDirection(SKTransitionDirection.Down, duration: 1)
-            let newScene = GameScene(size: self.scene!.size)
+            let newScene = GameScene4(size: self.scene!.size)
             newScene.scaleMode = SKSceneScaleMode.AspectFill
             self.view?.presentScene(newScene, transition: tr)
         }
-
+        
     }
 }
+

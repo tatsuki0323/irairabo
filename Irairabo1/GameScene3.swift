@@ -1,8 +1,8 @@
 //
-//  GameScene3.swift
+//  GameScene2.swift
 //  Irairabo1
 //
-//  Created by 川崎　樹 on 2015/09/12.
+//  Created by 川崎　樹 on 2015/09/10.
 //  Copyright (c) 2015年 川崎　樹. All rights reserved.
 //
 
@@ -10,8 +10,10 @@ import SpriteKit
 import AVFoundation
 
 private var myAudioPlayer : AVAudioPlayer!
-private var back = SKSpriteNode(imageNamed:"sampleStage3")//背景
+private var back = SKSpriteNode(imageNamed:"sampleStage2")//背景
 private var ball = SKSpriteNode(imageNamed:"sampleBall2")//ボール画像
+private var obstacle2 = SKSpriteNode(imageNamed:"obstacle2")//障害物画像
+private var obstacle3 = SKSpriteNode(imageNamed:"obstacle2")//障害物画像
 //private let frictionCircle = SKShapeNode()//当たり判定用の円
 private var last: CFTimeInterval!
 
@@ -35,7 +37,7 @@ class GameScene3: SKScene,SKPhysicsContactDelegate,AVAudioPlayerDelegate{
         self.backgroundColor = UIColor.yellowColor()//背景色の設定
         //ステージ
         back.name = "back"
-        back.physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: "sampleStage3.png"),size:back.size)
+        back.physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: "sampleStage2.png"),size:back.size)
         back.physicsBody?.dynamic = false//動かないようにする
         //back.position = CGPointMake(-self.size.width*0.3,self.size.height*0.5)
         back.position = CGPointMake(self.size.width*0,self.size.height*0.5)
@@ -55,12 +57,30 @@ class GameScene3: SKScene,SKPhysicsContactDelegate,AVAudioPlayerDelegate{
         ball.position = CGPointMake(self.size.width*0.60,self.size.height*0.5)
         self.addChild(ball)
         
+        //時計回りの障害物作成
+        obstacle2.name = "obstacle2"
+        obstacle2.physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: "obstacle2.png"),size:obstacle2.size)
+        //obstacle2.physicsBody?.contactTestBitMask = 0
+        //obstacle2.physicsBody?.categoryBitMask = 0
+        obstacle2.physicsBody?.collisionBitMask = 0
+        obstacle2.position = CGPointMake(0,self.size.height*0.5)
+        self.addChild(obstacle2)
+        
+        //反時計周りの障害物作成
+        obstacle3.name = "obstacle3"
+        obstacle3.physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: "obstacle2.png"),size:obstacle3.size)
+        //obstacle3.physicsBody?.contactTestBitMask = 0
+        //obstacle3.physicsBody?.categoryBitMask = 0
+        obstacle3.physicsBody?.collisionBitMask = 0
+        obstacle3.position = CGPointMake(-500,self.size.height*0.5)
+        self.addChild(obstacle3)
+        
         //ステージ数を左上に表示
         stageLabel3.text = "すてーじ3"
         stageLabel3.fontSize = 20
-        //stageLabel2.position = CGPoint(x:CGRectGetMidX(self.frame)*0.7, y:CGRectGetMidY(self.frame)*2-50)
+        //stageLabel3.position = CGPoint(x:CGRectGetMidX(self.frame)*0.7, y:CGRectGetMidY(self.frame)*2-50)
         stageLabel3.position = CGPoint(x:300, y:750)
-        stageLabel3.name = "Stage2"
+        stageLabel3.name = "Stage3"
         self.addChild(stageLabel3)
         
         //ステージのはじめに表示
@@ -68,13 +88,13 @@ class GameScene3: SKScene,SKPhysicsContactDelegate,AVAudioPlayerDelegate{
         startStageLabel3.fontSize = 20
         startStageLabel3.fontColor = UIColor.blueColor()
         startStageLabel3.position = CGPoint(x:self.size.width*0.5,y:self.size.height*0.8)
-        startStageLabel3.name = "CurrentStage2"
+        startStageLabel3.name = "CurrentStage3"
         self.addChild(startStageLabel3)
         
         let labelFadeOutAction = SKAction.fadeAlphaTo(0, duration: 1.5)
         startStageLabel3.runAction(labelFadeOutAction)
         
-        }
+    }
     
     override func touchesMoved(touches: Set<UITouch>,withEvent event: UIEvent?){//ドラッグ処理
         // タッチイベントを取得.
@@ -102,15 +122,21 @@ class GameScene3: SKScene,SKPhysicsContactDelegate,AVAudioPlayerDelegate{
         if let nodeA = contact.bodyA.node {
             if let nodeB = contact.bodyB.node {
                 if (nodeA.name == "back" ||
-                    nodeB.name == "back" ) &&
-                   (nodeA.name == "ball" ||
-                    nodeB.name == "ball")
+                    nodeB.name == "back" ||
+                    nodeA.name == "obstacle2" ||
+                    nodeB.name == "obstacle2" ||
+                    nodeA.name == "obstacle3" ||
+                    nodeB.name == "obstacle3" ) &&
+                    (nodeA.name == "ball" ||
+                        nodeB.name == "ball")
                 {
                     //ここに衝突が発生したときの処理を書く
                     startStageLabel3.removeFromParent()
                     ball.removeFromParent()
                     back.removeFromParent()
-                    
+                    obstacle2.removeFromParent()
+                    obstacle3.removeFromParent()
+
                     
                     //画面線した場合にまたラベルを表示させる
                     startStageLabel3.alpha = 1.0
@@ -122,7 +148,7 @@ class GameScene3: SKScene,SKPhysicsContactDelegate,AVAudioPlayerDelegate{
                     myAudioPlayer.stop()//BGMストップ
                     
                     let tr = SKTransition.revealWithDirection(SKTransitionDirection.Down, duration: 1)
-                    let newScene = GameOverScene(size: self.scene!.size)
+                    let newScene = GameOverScene3(size: self.scene!.size)
                     newScene.scaleMode = SKSceneScaleMode.AspectFill
                     self.view?.presentScene(newScene, transition: tr)
                 }
@@ -171,9 +197,12 @@ class GameScene3: SKScene,SKPhysicsContactDelegate,AVAudioPlayerDelegate{
                 startStageLabel3.removeFromParent()
                 ball.removeFromParent()
                 back.removeFromParent()
+                obstacle2.removeFromParent()
+                obstacle3.removeFromParent()
+
                 
                 let tr = SKTransition.revealWithDirection(SKTransitionDirection.Down, duration: 1)
-                let newScene = GameClearScene(size: self.scene!.size)
+                let newScene = GameClearScene3(size: self.scene!.size)
                 newScene.scaleMode = SKSceneScaleMode.AspectFill
                 last = currentTime//lastを初期化
                 self.view?.presentScene(newScene, transition: tr)
@@ -181,8 +210,21 @@ class GameScene3: SKScene,SKPhysicsContactDelegate,AVAudioPlayerDelegate{
         }
         back.position.x += 1
         
+        obstacle2.position.x += 1
+        obstacle2.position.y = self.size.height*0.5
+        obstacle2.zRotation += DegreeToRadian(0.5)
+        
+        obstacle3.position.x += 1
+        obstacle3.position.y = self.size.height*0.5
+        obstacle3.zRotation -= DegreeToRadian(0.5)
+    }
+    /*
+    度数からラジアンに変換するメソッド
+    */
+    func DegreeToRadian(Degree : Double!)-> CGFloat{
+        
+        return CGFloat(Degree) / CGFloat(180.0 * M_1_PI)
     }
 }
-
 
 

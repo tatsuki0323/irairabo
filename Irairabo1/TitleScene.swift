@@ -34,7 +34,7 @@ class TitleScene: SKScene {
         
         if touchedNode.name == "Start" {
             let tr = SKTransition.revealWithDirection(SKTransitionDirection.Down, duration: 1)
-            let newScene = GameScene4(size: self.scene!.size)
+            let newScene = GameScene(size: self.scene!.size)
             newScene.scaleMode = SKSceneScaleMode.AspectFill
             self.view?.presentScene(newScene, transition: tr)
         }
