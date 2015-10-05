@@ -190,7 +190,7 @@ class GameScene4: SKScene,SKPhysicsContactDelegate,AVAudioPlayerDelegate{
         }
         
         if last + 1 <= currentTime {
-            if back.position.x >= self.size.width + 500{//ゲームをクリアした場合
+            if back.position.x >= self.size.width + 600{//ゲームをクリアした場合
                 myAudioPlayer.stop()//BGM終了
                 startStageLabel4.alpha = 1.0;
                 startStageLabel4.removeFromParent()
