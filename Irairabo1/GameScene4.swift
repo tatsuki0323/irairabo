@@ -9,19 +9,19 @@
 import SpriteKit
 import AVFoundation
 
-private var myAudioPlayer : AVAudioPlayer!
-private var back = SKSpriteNode(imageNamed:"sampleStage4")//背景
-private var sky = SKSpriteNode(imageNamed:"backSample")//背景
-private var ball = SKSpriteNode(imageNamed:"sampleBall2")//ボール画像
-private var obstacle3 = SKSpriteNode(imageNamed:"obstacle3")//ボール画像
-//private let frictionCircle = SKShapeNode()//当たり判定用の円
-private var last: CFTimeInterval!
-
-let stageLabel4 = SKLabelNode(fontNamed: "Chalkduster")//左上のステージラベル
-let startStageLabel4 = SKLabelNode(fontNamed: "Chalkduster")//今のステージを表示するラベル
-
-
 class GameScene4: SKScene,SKPhysicsContactDelegate,AVAudioPlayerDelegate{
+    private var myAudioPlayer : AVAudioPlayer!
+    private var back = SKSpriteNode(imageNamed:"sampleStage4")//背景
+    private var ball = SKSpriteNode(imageNamed:"sampleBall2")//ボール画像
+    private var sky1 = SKSpriteNode(imageNamed:"sky1")//背景
+    private var sky2 = SKSpriteNode(imageNamed:"sky2")//背景
+    private var obstacle3 = SKSpriteNode(imageNamed:"obstacle3")//ボール画像
+    //private let frictionCircle = SKShapeNode()//当たり判定用の円
+    private var last: CFTimeInterval!
+    
+    let stageLabel = SKLabelNode(fontNamed: "Chalkduster")//左上のステージラベル
+    let startStageLabel = SKLabelNode(fontNamed: "Chalkduster")//今のステージを表示するラベル
+    
     override func didMoveToView(view: SKView) {
         
         //再生する音源のURLを生成.
@@ -35,18 +35,18 @@ class GameScene4: SKScene,SKPhysicsContactDelegate,AVAudioPlayerDelegate{
         myAudioPlayer.delegate = self
         myAudioPlayer.play()
         
-        //背景
-        sky.name = "backSample"
-        sky.physicsBody?.dynamic = false//動かないようにする
+        //背景1
+        sky1.name = "sky1"
+        sky1.physicsBody?.dynamic = false//動かないようにする
         //back.position = CGPointMake(-self.size.width*0.3,self.size.height*0.5)
-        sky.position = CGPointMake(self.size.width*0.2,self.size.height*0.5)
-        /*
-        sky.runAction(SKAction.repeatActionForever(
-            SKAction.sequence([
-                SKAction.moveToX(1200.0, duration: 15.0),
-                SKAction.moveToX(self.size.width-1250.0, duration: 0.0)])))
-        self.addChild(sky)
-        */
+        sky1.position = CGPointMake(self.size.width/2,self.size.height/2)
+        self.addChild(sky1)
+        
+        //背景2
+        sky2.name = "sky2"
+        sky2.physicsBody?.dynamic = false//動かないようにする
+        sky2.position = CGPointMake(-self.size.width*0.5,self.size.height*0.5)
+        self.addChild(sky2)
 
         //ステージ
         back.name = "back"
@@ -79,23 +79,23 @@ class GameScene4: SKScene,SKPhysicsContactDelegate,AVAudioPlayerDelegate{
         self.addChild(obstacle3)
 
         //ステージ数を左上に表示
-        stageLabel4.text = "すてーじ4"
-        stageLabel4.fontSize = 20
+        stageLabel.text = "すてーじ4"
+        stageLabel.fontSize = 20
         //stageLabel4.position = CGPoint(x:CGRectGetMidX(self.frame)*0.7, y:CGRectGetMidY(self.frame)*2-50)
-        stageLabel4.position = CGPoint(x:300, y:750)
-        stageLabel4.name = "Stage4"
-        self.addChild(stageLabel4)
+        stageLabel.position = CGPoint(x:300, y:750)
+        stageLabel.name = "Stage4"
+        self.addChild(stageLabel)
         
         //ステージのはじめに表示
-        startStageLabel4.text = "すてーじ4"
-        startStageLabel4.fontSize = 20
-        startStageLabel4.fontColor = UIColor.blueColor()
-        startStageLabel4.position = CGPoint(x:self.size.width*0.5,y:self.size.height*0.8)
-        startStageLabel4.name = "CurrentStage4"
-        self.addChild(startStageLabel4)
+        startStageLabel.text = "すてーじ4"
+        startStageLabel.fontSize = 20
+        startStageLabel.fontColor = UIColor.blueColor()
+        startStageLabel.position = CGPoint(x:self.size.width*0.5,y:self.size.height*0.8)
+        startStageLabel.name = "CurrentStage4"
+        self.addChild(startStageLabel)
         
         let labelFadeOutAction = SKAction.fadeAlphaTo(0, duration: 1.5)
-        startStageLabel4.runAction(labelFadeOutAction)
+        startStageLabel.runAction(labelFadeOutAction)
         
     }
     
@@ -132,14 +132,15 @@ class GameScene4: SKScene,SKPhysicsContactDelegate,AVAudioPlayerDelegate{
                     nodeB.name == "ball")
                 {
                     //ここに衝突が発生したときの処理を書く
-                    startStageLabel4.removeFromParent()
+                    startStageLabel.removeFromParent()
                     ball.removeFromParent()
                     back.removeFromParent()
-                    //sky.removeFromParent()
+                    sky1.removeFromParent()
+                    sky2.removeFromParent()
                     obstacle3.removeFromParent()
                     
                     //画面線した場合にまたラベルを表示させる
-                    startStageLabel4.alpha = 1.0
+                    startStageLabel.alpha = 1.0
                     
                     
                     // lastが未定義ならば、今の時間を入れる。
@@ -192,11 +193,12 @@ class GameScene4: SKScene,SKPhysicsContactDelegate,AVAudioPlayerDelegate{
         if last + 1 <= currentTime {
             if back.position.x >= self.size.width + 600{//ゲームをクリアした場合
                 myAudioPlayer.stop()//BGM終了
-                startStageLabel4.alpha = 1.0;
-                startStageLabel4.removeFromParent()
+                startStageLabel.alpha = 1.0;
+                startStageLabel.removeFromParent()
                 ball.removeFromParent()
                 back.removeFromParent()
-                //sky.removeFromParent()
+                sky1.removeFromParent()
+                sky2.removeFromParent()
                // obstacle3.removeFromParent()
                 
                 let tr = SKTransition.revealWithDirection(SKTransitionDirection.Down, duration: 1)
@@ -207,7 +209,15 @@ class GameScene4: SKScene,SKPhysicsContactDelegate,AVAudioPlayerDelegate{
             }
         }
         back.position.x += 1
-        sky.position.x += 1
+        sky1.position.x += 1
+        sky2.position.x += 1
+        if(sky1.position.x >= self.size.width*1.5){
+            sky1.position.x = -self.size.width*0.5
+        }
+        if(sky2.position.x >= self.size.width*1.5){
+            sky2.position.x = -self.size.width*0.5
+        }
+
         if(obstacle3.position.x >= back.position.x-753){
             if(obstacle3.position.x >= ball.position.x && obstacle3.position.y >= ball.position.y){
                 obstacle3.position.x -= 0.5

@@ -9,10 +9,10 @@
 import SpriteKit
 import AVFoundation
 
-private var myAudioPlayer : AVAudioPlayer!
+
 
 class GameClearScene3: SKScene,AVAudioPlayerDelegate{
-    
+    private var myAudioPlayer : AVAudioPlayer!
     override func didMoveToView(view: SKView) {
         //再生する音源のURLを生成.
         let soundFilePath : NSString = NSBundle.mainBundle().pathForResource("se_clear", ofType: "mp3")!

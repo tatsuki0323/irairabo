@@ -9,19 +9,21 @@
 import SpriteKit
 import AVFoundation
 
-private var myAudioPlayer : AVAudioPlayer!
-private var back = SKSpriteNode(imageNamed:"sampleStage2")//背景
-private var ball = SKSpriteNode(imageNamed:"sampleBall2")//ボール画像
-private var obstacle2 = SKSpriteNode(imageNamed:"obstacle2")//障害物画像
-private var obstacle3 = SKSpriteNode(imageNamed:"obstacle2")//障害物画像
-//private let frictionCircle = SKShapeNode()//当たり判定用の円
-private var last: CFTimeInterval!
-
-let stageLabel3 = SKLabelNode(fontNamed: "Chalkduster")//左上のステージラベル
-let startStageLabel3 = SKLabelNode(fontNamed: "Chalkduster")//今のステージを表示するラベル
-
-
 class GameScene3: SKScene,SKPhysicsContactDelegate,AVAudioPlayerDelegate{
+    
+    private var myAudioPlayer : AVAudioPlayer!
+    private var back = SKSpriteNode(imageNamed:"sampleStage2")//背景
+    private var ball = SKSpriteNode(imageNamed:"sampleBall2")//ボール画像
+    private var sky1 = SKSpriteNode(imageNamed:"sky1")//背景
+    private var sky2 = SKSpriteNode(imageNamed:"sky2")//背景
+    private var obstacle2 = SKSpriteNode(imageNamed:"obstacle2")//障害物画像
+    private var obstacle3 = SKSpriteNode(imageNamed:"obstacle2")//障害物画像
+    //private let frictionCircle = SKShapeNode()//当たり判定用の円
+    private var last: CFTimeInterval!
+    
+    let stageLabel = SKLabelNode(fontNamed: "Chalkduster")//左上のステージラベル
+    let startStageLabel = SKLabelNode(fontNamed: "Chalkduster")//今のステージを表示するラベル
+    
     override func didMoveToView(view: SKView) {
         
         //再生する音源のURLを生成.
@@ -34,7 +36,20 @@ class GameScene3: SKScene,SKPhysicsContactDelegate,AVAudioPlayerDelegate{
         //AVAudioPlayerのデリゲートをセット.
         myAudioPlayer.delegate = self
         myAudioPlayer.play()
-        self.backgroundColor = UIColor.yellowColor()//背景色の設定
+       
+        //背景1
+        sky1.name = "sky1"
+        sky1.physicsBody?.dynamic = false//動かないようにする
+        //back.position = CGPointMake(-self.size.width*0.3,self.size.height*0.5)
+        sky1.position = CGPointMake(self.size.width/2,self.size.height/2)
+        self.addChild(sky1)
+        
+        //背景2
+        sky2.name = "sky2"
+        sky2.physicsBody?.dynamic = false//動かないようにする
+        sky2.position = CGPointMake(-self.size.width*0.5,self.size.height*0.5)
+        self.addChild(sky2)
+
         //ステージ
         back.name = "back"
         back.physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: "sampleStage2.png"),size:back.size)
@@ -76,23 +91,23 @@ class GameScene3: SKScene,SKPhysicsContactDelegate,AVAudioPlayerDelegate{
         self.addChild(obstacle3)
         
         //ステージ数を左上に表示
-        stageLabel3.text = "すてーじ3"
-        stageLabel3.fontSize = 20
+        stageLabel.text = "すてーじ3"
+        stageLabel.fontSize = 20
         //stageLabel3.position = CGPoint(x:CGRectGetMidX(self.frame)*0.7, y:CGRectGetMidY(self.frame)*2-50)
-        stageLabel3.position = CGPoint(x:300, y:750)
-        stageLabel3.name = "Stage3"
-        self.addChild(stageLabel3)
+        stageLabel.position = CGPoint(x:300, y:750)
+        stageLabel.name = "Stage3"
+        self.addChild(stageLabel)
         
         //ステージのはじめに表示
-        startStageLabel3.text = "すてーじ3"
-        startStageLabel3.fontSize = 20
-        startStageLabel3.fontColor = UIColor.blueColor()
-        startStageLabel3.position = CGPoint(x:self.size.width*0.5,y:self.size.height*0.8)
-        startStageLabel3.name = "CurrentStage3"
-        self.addChild(startStageLabel3)
+        startStageLabel.text = "すてーじ3"
+        startStageLabel.fontSize = 20
+        startStageLabel.fontColor = UIColor.blueColor()
+        startStageLabel.position = CGPoint(x:self.size.width*0.5,y:self.size.height*0.8)
+        startStageLabel.name = "CurrentStage3"
+        self.addChild(startStageLabel)
         
         let labelFadeOutAction = SKAction.fadeAlphaTo(0, duration: 1.5)
-        startStageLabel3.runAction(labelFadeOutAction)
+        startStageLabel.runAction(labelFadeOutAction)
         
     }
     
@@ -131,15 +146,17 @@ class GameScene3: SKScene,SKPhysicsContactDelegate,AVAudioPlayerDelegate{
                         nodeB.name == "ball")
                 {
                     //ここに衝突が発生したときの処理を書く
-                    startStageLabel3.removeFromParent()
+                    startStageLabel.removeFromParent()
                     ball.removeFromParent()
                     back.removeFromParent()
+                    sky1.removeFromParent()
+                    sky2.removeFromParent()
                     obstacle2.removeFromParent()
                     obstacle3.removeFromParent()
 
                     
                     //画面線した場合にまたラベルを表示させる
-                    startStageLabel3.alpha = 1.0
+                    startStageLabel.alpha = 1.0
                     
                     
                     
@@ -193,10 +210,12 @@ class GameScene3: SKScene,SKPhysicsContactDelegate,AVAudioPlayerDelegate{
         if last + 1 <= currentTime {
             if back.position.x >= self.size.width + 600{//ゲームをクリアした場合
                 myAudioPlayer.stop()//BGM終了
-                startStageLabel3.alpha = 1.0;
-                startStageLabel3.removeFromParent()
+                startStageLabel.alpha = 1.0;
+                startStageLabel.removeFromParent()
                 ball.removeFromParent()
                 back.removeFromParent()
+                sky1.removeFromParent()
+                sky2.removeFromParent()
                 obstacle2.removeFromParent()
                 obstacle3.removeFromParent()
 
@@ -217,6 +236,15 @@ class GameScene3: SKScene,SKPhysicsContactDelegate,AVAudioPlayerDelegate{
         obstacle3.position.x += 1
         obstacle3.position.y = self.size.height*0.5
         obstacle3.zRotation -= DegreeToRadian(0.5)
+        sky1.position.x += 1
+        sky2.position.x += 1
+        if(sky1.position.x >= self.size.width*1.5){
+            sky1.position.x = -self.size.width*0.5
+        }
+        if(sky2.position.x >= self.size.width*1.5){
+            sky2.position.x = -self.size.width*0.5
+        }
+
     }
     /*
     度数からラジアンに変換するメソッド

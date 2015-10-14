@@ -9,9 +9,10 @@
 import SpriteKit
 import AVFoundation
 
-private var myAudioPlayer : AVAudioPlayer!
+
 
 class GameClearScene2: SKScene,AVAudioPlayerDelegate{
+    private var myAudioPlayer : AVAudioPlayer!
     
     override func didMoveToView(view: SKView) {
         //再生する音源のURLを生成.

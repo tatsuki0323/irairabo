@@ -9,16 +9,20 @@
 import SpriteKit
 import AVFoundation
 
-private var myAudioPlayer : AVAudioPlayer!
-private var back = SKSpriteNode(imageNamed:"stage1")//背景
-private var ball = SKSpriteNode(imageNamed:"sampleBall2")//ボール画像
-private var last: CFTimeInterval!
-
-let stageLabel = SKLabelNode(fontNamed: "Chalkduster")//左上のステージラベル
-let startStageLabel = SKLabelNode(fontNamed: "Chalkduster")//今のステージを表示するラベル
-
-
 class GameScene: SKScene,SKPhysicsContactDelegate,AVAudioPlayerDelegate{
+    
+    private var myAudioPlayer : AVAudioPlayer!
+    private var back = SKSpriteNode(imageNamed:"stage1-1")//背景
+    private var ball = SKSpriteNode(imageNamed:"sampleBall2")//ボール画像
+    private var sky1 = SKSpriteNode(imageNamed:"sky1")//背景
+    private var sky2 = SKSpriteNode(imageNamed:"sky2")//背景
+    
+    
+    private var last: CFTimeInterval!
+    
+    let stageLabel = SKLabelNode(fontNamed: "Chalkduster")//左上のステージラベル
+    let startStageLabel = SKLabelNode(fontNamed: "Chalkduster")//今のステージを表示するラベル
+
     override func didMoveToView(view: SKView) {
         
         //再生する音源のURLを生成.
@@ -31,10 +35,27 @@ class GameScene: SKScene,SKPhysicsContactDelegate,AVAudioPlayerDelegate{
         //AVAudioPlayerのデリゲートをセット.
         myAudioPlayer.delegate = self
         myAudioPlayer.play()
-        self.backgroundColor = UIColor.yellowColor()//背景色の設定
+        
+        //背景1
+        sky1.name = "sky1"
+        sky1.physicsBody?.dynamic = false//動かないようにする
+        //back.position = CGPointMake(-self.size.width*0.3,self.size.height*0.5)
+        sky1.position = CGPointMake(self.size.width/2,self.size.height/2)
+        self.addChild(sky1)
+
+        
+        //背景2
+        sky2.name = "sky2"
+        sky2.physicsBody?.dynamic = false//動かないようにする
+        sky2.position = CGPointMake(-self.size.width*0.5,self.size.height*0.5)
+        self.addChild(sky2)
+
+        
+
+        //self.backgroundColor = UIColor.yellowColor()//背景色の設定
         //ステージ
         back.name = "back"
-        back.physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: "stage1.png"),size:back.size)
+        back.physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: "stage1-1.png"),size:back.size)
         back.physicsBody?.dynamic = false//動かないようにする
         back.position = CGPointMake(self.size.width*0,self.size.height*0.5)
         self.addChild(back)
@@ -112,6 +133,8 @@ class GameScene: SKScene,SKPhysicsContactDelegate,AVAudioPlayerDelegate{
                     startStageLabel.removeFromParent()
                     ball.removeFromParent()
                     back.removeFromParent()
+                    sky1.removeFromParent()
+                    sky2.removeFromParent()
                     
                     //画面線した場合にまたラベルを表示させる
                     startStageLabel.alpha = 1.0
@@ -141,6 +164,8 @@ class GameScene: SKScene,SKPhysicsContactDelegate,AVAudioPlayerDelegate{
                 startStageLabel.removeFromParent()
                 ball.removeFromParent()
                 back.removeFromParent()
+                sky1.removeFromParent()
+                sky2.removeFromParent()
     
                 let tr = SKTransition.revealWithDirection(SKTransitionDirection.Down, duration: 1)
                 let newScene = GameClearScene(size: self.scene!.size)
@@ -150,6 +175,14 @@ class GameScene: SKScene,SKPhysicsContactDelegate,AVAudioPlayerDelegate{
             }
         }
         back.position.x += 1
+        sky1.position.x += 1
+        sky2.position.x += 1
+        if(sky1.position.x >= self.size.width*1.5){
+        sky1.position.x = -self.size.width*0.5
+        }
+        if(sky2.position.x >= self.size.width*1.5){
+            sky2.position.x = -self.size.width*0.5
+        }
     }
 }
 

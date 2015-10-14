@@ -31,8 +31,8 @@ class GameViewController: UIViewController {
         if let scene = TitleScene.unarchiveFromFile("TitleScene") as? TitleScene {
             // Configure the view.
             let skView = self.view as! SKView
-            skView.showsFPS = true
-            skView.showsNodeCount = true
+            skView.showsFPS = false
+            skView.showsNodeCount = false
             // シーンのサイズをビューに合わせる
             //scene.size = skView.frame.size
             /* Sprite Kit applies additional optimizations to improve rendering performance */
